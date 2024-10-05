@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+
+
+
+# Environment variables
+.env
+
+
+# Optional npm cache directory
+.npm
+
+# Built files (for transpiled or compiled code)
+dist/
+build/
+
