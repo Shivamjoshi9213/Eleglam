@@ -29,6 +29,10 @@ app.get("/", (req, res) => {
   res.send("server is running");
 });
 
+app.get("/test", (req, res) => {
+  res.send("Testing working fine!");
+});
+
 app.use("/api/v1/user",userRoute)
 app.use("/api/v1",paymentRoute)
 app.use("/api/v1",orderRoute)
