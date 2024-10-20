@@ -1,6 +1,7 @@
+import mongoose from 'mongoose';
 import User from '../models/userModel.js';
 import { sendOTPEmail, sendOTPMobile,generateOTP } from '../utils/genrateToken.js'
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 
 //  export async function sendOtpController(req, res){
 //   const { phone, email } = req.body;
@@ -198,5 +199,230 @@ export async function verifyOtpController(req, res) {
     res.status(200).json({ message: 'OTP verified successfully', token });
   } catch (error) {
     res.status(500).json({ message: 'Error verifying OTP', error });
+  }
+}
+// Add Address Controller
+// export async function addAddressController(req, res) {
+//   const { userId } = req.body; // Assuming you're passing the user ID after OTP verification
+
+//   const { firstName, lastName, street, city, state, country, postalCode, phone, email } = req.body;
+
+//   if (!userId) {
+//     return res.status(400).json({ message: "User ID is required" });
+//   }
+//   if (!firstName) {
+//     return res.status(400).json({ message: 'First name is required' });
+//   }
+//   if (!lastName) {
+//     return res.status(400).json({ message: 'Last name is required' });
+//   }
+//   if (!street) {
+//     return res.status(400).json({ message: 'Street is required' });
+//   }
+//   if (!city) {
+//     return res.status(400).json({ message: 'City is required' });
+//   }
+//   if (!state) {
+//     return res.status(400).json({ message: 'State is required' });
+//   }
+//   if (!country) {
+//     return res.status(400).json({ message: 'Country is required' });
+//   }
+//   if (!postalCode) {
+//     return res.status(400).json({ message: 'Postal code is required' });
+//   }
+  
+//   if (!mongoose.Types.ObjectId.isValid(userId)) {
+//     return res.status(400).json({ message: "Invalid User ID" });
+//   }
+
+//   try {
+//     // Find the user by ID
+//     const user = await User.findById(mongoose.Types.ObjectId(userId));
+//     // If the user does not exist
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+    
+//  // Ensure that if user already has a phone number, they can only add an email, and vice versa.
+//  if (user.phone && phone) {
+//   return res.status(400).json({ message: "Phone number is already set. Cannot update phone." });
+// }
+
+// if (user.email && email) {
+//   return res.status(400).json({ message: "Email is already set. Cannot update email." });
+// }
+
+// // Allow adding email if phone was already set
+// if (user.phone && !user.email && email) {
+//   user.email = email; // Add email if it's provided and phone was already set
+// }
+
+// // Allow adding phone if email was already set
+// if (user.email && !user.phone && phone) {
+//   user.phone = phone; // Add phone if it's provided and email was already set
+// }
+
+//     // Update the user's address information
+//     user.firstName = firstName;
+//     user.lastName = lastName;
+//     user.street = street;
+//     user.city = city;
+//     user.state = state;
+//     user.country = country;
+//     user.postalCode = postalCode;
+
+//     // Save the updated user details
+//     await user.save();
+
+//     res.status(200).json({ message: "Address and contact details added successfully", user });
+//   } catch (error) {
+//     res.status(500).json({ message: "Error adding address and contact details", error });
+//   }
+// }
+
+// export async function addAddressController(req, res) {
+//   const { userId, firstName, lastName, street, city, state, country, postalCode, phone, email } = req.body;
+
+//   // Check if userId is provided
+//   if (!userId) {
+//     return res.status(400).json({ message: "User ID is required" });
+//   }
+
+//   // Check if all address fields are provided
+//   if (!firstName) return res.status(400).json({ message: 'First name is required' });
+//   if (!lastName) return res.status(400).json({ message: 'Last name is required' });
+//   if (!street) return res.status(400).json({ message: 'Street is required' });
+//   if (!city) return res.status(400).json({ message: 'City is required' });
+//   if (!state) return res.status(400).json({ message: 'State is required' });
+//   if (!country) return res.status(400).json({ message: 'Country is required' });
+//   if (!postalCode) return res.status(400).json({ message: 'Postal code is required' });
+
+//   // Check if userId is valid
+//   if (!mongoose.Types.ObjectId.isValid(userId)) {
+//     return res.status(400).json({ message: "Invalid User ID" });
+//   }
+
+//   try {
+//     // Find the user by ID
+//     const user = await User.findById(mongoose.Types.ObjectId(userId));
+
+//     // If the user does not exist
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // Check if phone or email can be updated
+//     if (user.phone && phone) {
+//       return res.status(400).json({ message: "Phone number is already set. Cannot update phone." });
+//     }
+
+//     if (user.email && email) {
+//       return res.status(400).json({ message: "Email is already set. Cannot update email." });
+//     }
+
+//     // Allow adding email if phone was set
+//     if (user.phone && !user.email && email) {
+//       user.email = email; // Add email if phone was set
+//     }
+
+//     // Allow adding phone if email was set
+//     if (user.email && !user.phone && phone) {
+//       user.phone = phone; // Add phone if email was set
+//     }
+
+//     // Update the user's address information
+//     user.firstName = firstName;
+//     user.lastName = lastName;
+//     user.street = street;
+//     user.city = city;
+//     user.state = state;
+//     user.country = country;
+//     user.postalCode = postalCode;
+
+//     // Save the updated user details
+//     await user.save();
+
+//     // Respond with success
+//     return res.status(200).json({ message: "Address and contact details added successfully", user });
+//   } catch (error) {
+//     // Log the error for troubleshooting
+//     console.error("Error adding address:", error);
+
+//     // Return a detailed error message in response
+//     return res.status(500).json({ message: "Error adding address and contact details", error: error.message || error });
+//   }
+// }
+
+export async function addAddressController(req, res) {
+  const { userId, firstName, lastName, street, city, state, country, postalCode, phone, email } = req.body;
+
+  // Validate if the userId is provided
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
+  // Check for missing address fields
+  if (!firstName) return res.status(400).json({ message: 'First name is required' });
+  if (!lastName) return res.status(400).json({ message: 'Last name is required' });
+  if (!street) return res.status(400).json({ message: 'Street is required' });
+  if (!city) return res.status(400).json({ message: 'City is required' });
+  if (!state) return res.status(400).json({ message: 'State is required' });
+  if (!country) return res.status(400).json({ message: 'Country is required' });
+  if (!postalCode) return res.status(400).json({ message: 'Postal code is required' });
+
+  // Check if userId is a valid ObjectId
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: "Invalid User ID" });
+  }
+
+  try {
+    // Find the user by their ID (Mongoose automatically converts string IDs)
+    const user = await User.findById(userId); // No need for manual ObjectId conversion
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if phone or email can be added
+    if (user.phone && phone) {
+      return res.status(400).json({ message: "Phone number is already set. Cannot update phone." });
+    }
+
+    if (user.email && email) {
+      return res.status(400).json({ message: "Email is already set. Cannot update email." });
+    }
+
+    // Allow adding email if the phone was set but email was not
+    if (user.phone && !user.email && email) {
+      user.email = email; // Add email
+    }
+
+    // Allow adding phone if the email was set but phone was not
+    if (user.email && !user.phone && phone) {
+      user.phone = phone; // Add phone
+    }
+
+    // Update address information
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.street = street;
+    user.city = city;
+    user.state = state;
+    user.country = country;
+    user.postalCode = postalCode;
+
+    // Save the user with the updated details
+    await user.save();
+
+    // Respond with success
+    res.status(200).json({ message: "Address and contact details added successfully", user });
+  } catch (error) {
+    // Log error for debugging
+    console.error("Error adding address:", error);
+
+    // Send detailed error response
+    res.status(500).json({ message: "Error adding address and contact details", error: error.message });
   }
 }

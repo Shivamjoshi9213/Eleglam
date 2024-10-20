@@ -36,6 +36,35 @@ const userSchema = new mongoose.Schema(
       type: Date,
       required: true, // OTP expiration time is always required
     },
+    // Address fields - make these optional for OTP
+    firstName: {
+      type: String,
+      required: false, // Optional for OTP
+    },
+    lastName: {
+      type: String,
+      required: false, // Optional for OTP
+    },
+    street: {
+      type: String,
+      required: false, // Optional for OTP
+    },
+    city: {
+      type: String,
+      required: false, // Optional for OTP
+    },
+    state: {
+      type: String,
+      required: false, // Optional for OTP
+    },
+    country: {
+      type: String,
+      required: false, // Optional for OTP
+    },
+    postalCode: {
+      type: String,
+      required: false, // Optional for OTP
+    },
   },
   { timestamps: true }
 );

@@ -12,9 +12,6 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = new twilio(accountSid, authToken);
 
-console.log("Shivam ====1",accountSid)
-console.log("Shivam ====2",authToken)
-console.log("Shivam ===3",client)
 
 export async function sendOTPEmail(email, otp) {
   let transporter = nodemailer.createTransport({

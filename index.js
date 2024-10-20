@@ -6,6 +6,9 @@ import cors from "cors";
 import connectDB from "./config/DBconfig.js";
 import bodyParser from "body-parser";
 import userRoute from "./routes/userRoute.js";
+import paymentRoute from "./routes/paymentRoute.js";
+import orderRoute from "./routes/orderRoute.js";
+import Razorpay from "razorpay";
 
 // dotenv config
 dotenv.config();
@@ -27,6 +30,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/user",userRoute)
+app.use("/api/v1",paymentRoute)
+app.use("/api/v1",orderRoute)
 
 const PORT = process.env.PORT || 8000;
 
